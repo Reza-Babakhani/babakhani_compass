@@ -123,7 +123,6 @@ class _MyAppState extends State<MyApp> {
           );
         }
         double? direction = snapshot.data!.heading;
-
         // if direction is null, then device does not support this sensor
         // show error message
         if (direction == null) {
@@ -131,6 +130,8 @@ class _MyAppState extends State<MyApp> {
             child: Text("Device does not have sensors!"),
           );
         }
+
+        double fullDiraction = direction >= 0 ? direction : 360 + direction;
 
         String accuracy =
             CompassHelper.accuracyToString(snapshot.data!.accuracy!);
@@ -164,7 +165,7 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             Text(
-              "${direction.ceil()}° ${CompassHelper.degToCompassDirection(direction).stringValue}",
+              "${fullDiraction.ceil()}° ${CompassHelper.degToCompassDirection(fullDiraction).stringValue}",
               style: const TextStyle(fontSize: 26),
             ),
             const SizedBox(
