@@ -55,10 +55,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void didChangeDependencies() async {
-    if (_isInit && !_hasPermissions) {
-      Permission.locationWhenInUse.request().then((ignored) {
-        _fetchPermissionStatus();
-      });
+    if (_isInit) {
+      if (!_hasPermissions) {
+        Permission.locationWhenInUse.request().then((ignored) {
+          _fetchPermissionStatus();
+        });
+      }
+
       await ad();
       _isInit = false;
     }
